@@ -126,7 +126,7 @@ public class CustomizableContractResolver : DefaultContractResolver {
         }
 
         if (RefType(itemType)) {
-            property.Converter = new RefConverter();
+            property.Converter = new RefConverter(0);
         }
 
         if (ContainerTypesToIgnore.Contains(member.DeclaringType)) {
@@ -141,7 +141,10 @@ public class CustomizableContractResolver : DefaultContractResolver {
     private bool RefType(Type type) => typeof(Component).IsAssignableFrom(type) && type != typeof(Animator);
 }
 
-internal class RefConverter : JsonConverter {
+// remove zero-argument constructor to prevent the game's newtonsoft collection to try to apply it
+#pragma warning disable CS9113 // Parameter is unread.
+internal class RefConverter(int dummy) : JsonConverter {
+#pragma warning restore CS9113 // Parameter is unread.
     public static HashSet<Component> References = [];
 
     private static void WriteReference(JsonWriter writer, object? component) {
