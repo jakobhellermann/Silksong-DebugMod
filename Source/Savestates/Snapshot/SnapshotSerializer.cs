@@ -130,7 +130,11 @@ public static class SnapshotSerializer {
         ExactFieldTypesToIgnore = [typeof(Component)],
         FieldAllowlist = new Dictionary<Type, string[]> {
             { typeof(Transform), ["localPosition", "localRotation", "localScale"] },
-            { typeof(Rigidbody2D), ["position"] },
+            { typeof(Rigidbody2D), ["position", "linearVelocity"] }, {
+                typeof(HeroController), [
+                    "cState",
+                ]
+            },
         },
         FieldDenylist = new Dictionary<Type, string[]>(),
     };

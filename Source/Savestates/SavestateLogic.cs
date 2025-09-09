@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using DebugMod.Savestates.Snapshot;
+using DebugMod.Utils;
 using GlobalEnums;
 using HarmonyLib;
 using UnityEngine;
@@ -47,7 +49,8 @@ public static class SavestateLogic {
 
         if (filter.HasFlag(SavestateFilter.Player)) {
             sceneBehaviours.Add(ComponentSnapshot.Of(player.transform));
-            // SnapshotSerializer.SnapshotRecursive(player, sceneBehaviours, seen);
+            sceneBehaviours.Add(ComponentSnapshot.Of(player.GetFieldValue<Rigidbody2D>("rb2d")!));
+            SnapshotSerializer.SnapshotRecursive(player, sceneBehaviours, seen, 0);
             /*foreach (var (_, state) in player.fsm.GetStates()) {
                 SnapshotSerializer.SnapshotRecursive(state, sceneBehaviours, seen, 0);
             }*/
