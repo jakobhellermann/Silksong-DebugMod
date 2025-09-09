@@ -22,15 +22,13 @@ public class DebugMod : BaseUnityPlugin {
         Log.Init(Logger);
         harmony = Harmony.CreateAndPatchAll(typeof(DebugMod).Assembly);
 
-        var configSavestateFilter = Config.Bind("Savestates",
+        /*var configSavestateFilter = Config.Bind("Savestates",
             "Savestate filter",
             SavestateFilter.Player);
         var configSavestateLoadMode = Config.Bind("Savestates",
             "Savestate load mode",
-            SavestateLoadMode.None);
+            SavestateLoadMode.None);*/
         savestateModule = new SavestateModule(
-            configSavestateFilter,
-            configSavestateLoadMode,
             Config.Bind("Savestates",
                 "Save",
                 new KeyboardShortcut(KeyCode.KeypadPlus)

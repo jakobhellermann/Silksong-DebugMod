@@ -12,14 +12,17 @@ using UnityEngine.SceneManagement;
 namespace DebugMod.Modules;
 
 public class SavestateModule(
-    ConfigEntry<SavestateFilter> currentFilter,
-    ConfigEntry<SavestateLoadMode> loadMode,
+    // ConfigEntry<SavestateFilter> currentFilter,
+    // ConfigEntry<SavestateLoadMode> loadMode,
     ConfigEntry<KeyboardShortcut> openSave,
     ConfigEntry<KeyboardShortcut> openLoad,
     ConfigEntry<KeyboardShortcut> openDelete,
     ConfigEntry<KeyboardShortcut> tabNext,
     ConfigEntry<KeyboardShortcut> tabPrev
 ) {
+    private static SavestateFilter currentFilter = SavestateFilter.All;
+    private static SavestateLoadMode loadMode = SavestateLoadMode.ReloadScene;
+
     private const string SavestateLayerMain = "main";
     private const string SavestateLayerSecondary = "secondary";
 
@@ -28,7 +31,7 @@ public class SavestateModule(
     public bool CreateSavestate(string name, int slot, string layer, SavestateFilter? filter = null) {
         try {
             var sw = Stopwatch.StartNew();
-            var savestate = SavestateLogic.Create(filter ?? currentFilter.Value);
+            var savestate = SavestateLogic.Create(filter ?? currentFilter);
             savestates.Save(name, savestate, slot, layer);
             Log.Info($"Created savestate {name} in {sw.ElapsedMilliseconds}ms");
 
@@ -51,7 +54,7 @@ public class SavestateModule(
         try {
             IsLoadingSavestate = true;
 
-            await SavestateLogic.Load(savestate, loadMode.Value);
+            await SavestateLogic.Load(savestate, loadMode);
             return true;
         } catch (Exception e) {
             ToastManager.Toast($"Failed to load savestate: {e}");
