@@ -2,6 +2,7 @@
 using BepInEx.Configuration;
 using DebugMod.Modules;
 using DebugMod.Savestates;
+using DebugModPlus.Modules;
 using HarmonyLib;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ namespace DebugMod;
 public class DebugMod : BaseUnityPlugin {
     internal static DebugMod Instance = null!;
     private SavestateModule? savestateModule;
+    private InfotextModule? infotextModule;
 
     private Harmony? harmony;
 
@@ -50,14 +52,26 @@ public class DebugMod : BaseUnityPlugin {
                 new KeyboardShortcut(KeyCode.LeftArrow)
             )
         );
+
+
+        var configInfoTextEnabled = Config.Bind("Info Text Panel",
+            "Show Info",
+            false);
+        var configInfoTextFilter = Config.Bind("Info Text Panel",
+            "Filter",
+            InfotextModule.InfotextFilter.Basic);
+
+        infotextModule = new InfotextModule(configInfoTextEnabled, configInfoTextFilter);
     }
 
     private void Update() {
         savestateModule?.Update();
+        infotextModule?.Update();
     }
 
     private void OnGUI() {
         savestateModule?.OnGui();
+        infotextModule?.OnGui();
     }
 
     private void OnDestroy() {
