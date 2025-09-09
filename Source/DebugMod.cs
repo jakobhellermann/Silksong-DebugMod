@@ -1,5 +1,6 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
+using DebugMod.Hitboxes;
 using DebugMod.Modules;
 using DebugMod.Savestates;
 using DebugModPlus.Modules;
@@ -13,6 +14,8 @@ public class DebugMod : BaseUnityPlugin {
     internal static DebugMod Instance = null!;
     private SavestateModule? savestateModule;
     private InfotextModule? infotextModule;
+
+    private ConfigEntry<bool>? configVisualizeRaycasts;
 
     private Harmony? harmony;
 
@@ -62,6 +65,9 @@ public class DebugMod : BaseUnityPlugin {
         var configHitboxes = Config.Bind("Hitboxes",
             "Team Cherry Hitbox View",
             false);
+        configVisualizeRaycasts = Config.Bind("Hitboxes",
+            "Visualize Raycasts",
+            false);
         configHitboxes.SettingChanged += (_, _) => DebugDrawColliderRuntime.IsShowing = configHitboxes.Value;
 
         infotextModule = new InfotextModule(configInfoTextEnabled, configInfoTextFilter);
@@ -75,6 +81,10 @@ public class DebugMod : BaseUnityPlugin {
     private void OnGUI() {
         savestateModule?.OnGui();
         infotextModule?.OnGui();
+
+        if (configVisualizeRaycasts?.Value == true) {
+            RaycastDrawing.OnGUI();
+        }
     }
 
     private void OnDestroy() {

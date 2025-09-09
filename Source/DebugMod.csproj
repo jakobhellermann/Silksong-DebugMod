@@ -25,6 +25,9 @@
         <Reference Include="Assembly-CSharp">
             <HintPath>$(DllPath)/Assembly-CSharp.dll</HintPath>
         </Reference>
+        <Reference Include="TeamCherry.TK2D">
+            <HintPath>$(DllPath)/TeamCherry.TK2D.dll</HintPath>
+        </Reference>
         <Reference Include="Newtonsoft.Json">
             <HintPath>$(DllPath)/Newtonsoft.Json.dll</HintPath>
         </Reference>
