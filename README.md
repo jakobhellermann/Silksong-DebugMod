@@ -1,4 +1,4 @@
-# DebugMod
+# DubiDebugMod
 
 ## Features
 

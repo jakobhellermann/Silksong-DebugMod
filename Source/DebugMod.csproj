@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <AssemblyName>DebugMod</AssemblyName>
-        <Description>Example Mod</Description>
+        <AssemblyName>DubiDebugMod</AssemblyName>
+        <Description>Debug mod for Silksong</Description>
         <TargetFramework>netstandard2.1</TargetFramework>
         <Version>1.0.0</Version>
         <LangVersion>latest</LangVersion>

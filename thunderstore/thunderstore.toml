@@ -3,7 +3,7 @@ schemaVersion = "0.0.1"
 
 [package]
 namespace = "jakobhellermann"
-name = "DebugMod"
+name = "DubiDebugMod"
 versionNumber = "0.1.0"
 description = "Basic Debug Mod with Savestates"
 websiteUrl = "https://github.com/jakobhellermann/NineSols-DebugModPlus"
