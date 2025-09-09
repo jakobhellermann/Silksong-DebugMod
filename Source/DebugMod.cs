@@ -61,6 +61,11 @@ public class DebugMod : BaseUnityPlugin {
             "Filter",
             InfotextModule.InfotextFilter.Basic);
 
+        var configHitboxes = Config.Bind("Hitboxes",
+            "Team Cherry Hitbox View",
+            false);
+        configHitboxes.SettingChanged += (_, _) => DebugDrawColliderRuntime.IsShowing = configHitboxes.Value;
+
         infotextModule = new InfotextModule(configInfoTextEnabled, configInfoTextFilter);
     }
 
