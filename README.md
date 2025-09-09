@@ -1,5 +1,7 @@
 # DubiDebugMod
 
+Download is [here](https://github.com/jakobhellermann/Silksong-DubiDebugMod/releases).
+
 ## Features
 
 ### Savestates
